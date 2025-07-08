@@ -1,0 +1,81 @@
+{
+  "session_id": "bb32bf31-7892-4069-ba6b-96ca4b80e886",
+  "screens": [
+    {
+      "name": "main",
+      "key": "e77b28b0c42672dba773d7564f6dda4a",
+      "state": "active",
+      "title": "Group Travel Planning",
+      "description": "Main screen for collaborative travel planning and coordination.",
+      "icon": "",
+      "focus": "hi",
+      "interaction_value": "",
+      "interaction_template": "",
+      "cards": [
+        {
+          "name": "ReadMessageWithAM",
+          "key": "d6e1c814ac2eee3adf6319f17b310346",
+          "state": "active",
+          "title": "Member Information",
+          "description": "Gather member information, preferences, and coordinate group dynamics",
+          "focus": "Group Member Coordination",
+          "icon": "https://dopniceu5am9m.cloudfront.net/static/planning/new_icon/learn_about.png",
+          "interaction_value": null,
+          "interaction_template": "",
+          "loading": false,
+          "metadata": {
+            "description": "",
+            "state": "initial",
+            "access_permission": {
+              "apps": [
+                {
+                  "icon_url": "https://dopniceu5am9m.cloudfront.net/static/planning/appicon/line.png",
+                  "app_name": "",
+                  "package_name": "jp.naver.line.android"
+                },
+                {
+                  "icon_url": "https://dopniceu5am9m.cloudfront.net/static/planning/appicon/facebook.png",
+                  "app_name": "",
+                  "package_name": "com.facebook.katana"
+                }
+              ],
+              "title": "Access permission",
+              "subtitle": "Allow permission to access your calendar",
+              "buttons": [
+                {
+                  "key": "842783e2-1e42-4467-8687-4cfa8de90f7c",
+                  "title": "Reject",
+                  "description": "User clicked Reject",
+                  "interactions": [
+                    {
+                      "type": "onAccessPermissionReject",
+                      "title": "Reject",
+                      "description": "User clicked Reject",
+                      "value": null,
+                      "relation_key": "d6e1c814ac2eee3adf6319f17b310346"
+                    }
+                  ]
+                },
+                {
+                  "key": "d856cf0f-c49a-4130-84fb-c1a26833ca15",
+                  "title": "Confirm",
+                  "description": "User clicked Confirm",
+                  "interactions": [
+                    {
+                      "type": "onAccessPermissionConfirm",
+                      "title": "Confirm",
+                      "description": "User clicked Confirm",
+                      "value": "",
+                      "relation_key": "d6e1c814ac2eee3adf6319f17b310346"
+                    }
+                  ]
+                }
+              ]
+            },
+            "contacts": null
+          }
+        }
+      ]
+    }
+  ]
+}
