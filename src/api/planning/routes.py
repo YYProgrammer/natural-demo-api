@@ -10,7 +10,6 @@ import json
 from fastapi import APIRouter, Request
 from fastapi.responses import JSONResponse, StreamingResponse
 from pydantic import BaseModel
-from enum import Enum
 
 from src.api.planning.model.planning_flow_type import PlanningTypeEnum
 from src.api.planning.model.planning_interaction import PlanningInteraction
@@ -39,6 +38,7 @@ class PlanningChatRequest(BaseModel):
     session_id: str
     stream: bool = True
     query: str = ""
+
 
 def generate_stream(session_id: str, query: str, response_file: str) -> str:
     """生成流式响应数据"""
@@ -180,7 +180,9 @@ async def planning_completions(request: PlanningRequest, http_request: Request) 
     planFlow = PlanningTypeEnum.from_string(plan_flow_name)
     if planFlow == PlanningTypeEnum.aTob:
         response_file = response_by_interactions(request.interactions)
-        return StreamingResponse(stream_generator(request.session_id, request.query, response_file), media_type="text/event-stream")
+        return StreamingResponse(
+            stream_generator(request.session_id, request.query, response_file), media_type="text/event-stream"
+        )
     else:
         empty_response = {
             "session_id": request.session_id,

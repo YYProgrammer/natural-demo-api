@@ -24,9 +24,15 @@ dev = [
 packages = ["src"]
 
 [tool.mypy]
-python_version = "3.12.10"
+python_version = "3.12"
 disable_error_code = ["arg-type", "attr-defined", "call-overload"]
 #disallow_untyped_defs = true        # 强制函数必须有类型注解
 disallow_any_unimported = true      # 检测不存在的导入
+
+[dependency-groups]
+dev = [
+    "mypy==1.15.0",
+    "ruff==0.11.5",
+]
 #warn_return_any = true              # 检测返回 Any 类型
 #warn_unused_ignores = true          # 检测无用的类型忽略

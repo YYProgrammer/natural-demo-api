@@ -9,7 +9,7 @@ from datetime import datetime
 from fastapi import APIRouter, Header, HTTPException
 
 from src.api.notification.models.request import Notification
-from src.services.notification.notification_service import NotificationService, notification_service
+from src.services.notification.notification_service import notification_service
 
 router = APIRouter(prefix="/notification", tags=["notification"])
 
