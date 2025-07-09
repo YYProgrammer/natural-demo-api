@@ -7,14 +7,14 @@ name := "natural-demo-api"
 port := 5001
 
 lint:  ## Run ruff linter
-	$(HIDE)ruff check src/
+	$(HIDE)uv run ruff check src/
 
 type-check:  ## Run mypy type checker
-	$(HIDE)mypy src/
+	$(HIDE)uv run mypy src/
 
 fix:  ## Fix code with ruff
-	$(HIDE)ruff format src/
-	$(HIDE)ruff check --fix src/
+	$(HIDE)uv run ruff format src/
+	$(HIDE)uv run ruff check --fix src/
 
 check: lint type-check  ## Run both linting and type checking
 
