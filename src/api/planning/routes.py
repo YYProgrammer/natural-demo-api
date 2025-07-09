@@ -107,6 +107,8 @@ def response_by_interactions(interactions: list[PlanningInteraction]) -> str:
             return "a2b_step_1.json"
         elif interaction.type == "onAccessPermissionConfirm":
             return "a2b_step_3.json"
+        elif interaction.type == "onViewRoute":
+            return "a2b_step_4.json"
         else:
             return "a2b_step_1.json"
 
@@ -156,8 +158,8 @@ async def planning_chat(request: PlanningChatRequest) -> StreamingResponse:
         chat_room = chat_store.get_chat_room(request.session_id)
 
     # 流式返回聊天室数据
-    content = f'data: {json.dumps(chat_room)}\n\n'
-    
+    content = f"data: {json.dumps(chat_room)}\n\n"
+
     return StreamingResponse(iter([content]), media_type="text/event-stream")
 
 
