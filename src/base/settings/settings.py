@@ -12,7 +12,7 @@ class Settings(BaseModel):
 
     # API基本配置
     api_port: int = 5001
-    api_prefix: str = "/planning-api/api"
+    api_prefix: str = "/v1.0/invoke/planning-api/method"
 
 
 settings = Settings()
