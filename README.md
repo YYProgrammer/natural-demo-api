@@ -14,13 +14,13 @@ natural-api-test/
 ## 安装依赖
 
 ```bash
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 ```
 
 ## 运行项目
 
 ```bash
-python app.py
+python3 app.py
 ```
 
 项目将在 `http://localhost:5001` 上运行。
