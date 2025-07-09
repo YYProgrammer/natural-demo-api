@@ -1,0 +1,41 @@
+{
+    "original_description": "- [描述: Add contact] [android.widget.ImageButton]\n- [描述: @string/cd_contact_image] [android.widget.ImageView]\n- [描述: @string/cd_contact_image] [android.widget.ImageView]\n- [描述: @string/cd_contact_image] [android.widget.ImageView]\n- [描述: @string/cd_contact_image] [android.widget.ImageView]\n- [描述: @string/cd_contact_image] [android.widget.ImageView]\n- [描述: Official Account] [android.widget.FrameLayout]\n\n- All contacts [android.widget.TextView]\n- Choose gift for mom [android.widget.TextView]\n- Notes about mom [android.widget.TextView]\n- This Year’s Gift Idea: You got her a custom recipe book filled with a few of her favorite family recipes (and maybe some secret ones you made up). You left blank pages too, so she can continue adding to it over time. To go with it, you included a personalized apron embroidered with her name or a fun title like “Queen of the Kitchen.” [android.widget.TextView]\n- Your mom loved the dinnerware set so much that she started hosting more family dinners and even tried out some new recipes. You noticed how much joy she gets from creating a warm space for people to gather. [android.widget.TextView]\n\n------------------------------\n [描述: Add contact]\n All contacts\n [描述: @string/cd_contact_image]\n Choose gift for mom\n [描述: @string/cd_contact_image]\n [描述: @string/cd_contact_image]\n Notes about mom\n [描述: @string/cd_contact_image]\n This Year’s Gift Idea: You got her a custom recipe book filled with a few of her favorite family recipes (and maybe some secret ones you made up). You left blank pages too, so she can continue adding to it over time. To go with it, you included a personalized apron embroidered with her name or a fun title like “Queen of the Kitchen.”\n [描述: @string/cd_contact_image]\n Your mom loved the dinnerware set so much that she started hosting more family dinners and even tried out some new recipes. You noticed how much joy she gets from creating a warm space for people to gather.\n [描述: Official Account]",
+    "suggestions": [
+      {
+        "key": "aa8a9a7fb5b488474eb530cd554137cf",
+        "title": "Buy train ticket",
+        "description": "Allow user to buy train ticket",
+        "interactions": [
+          {
+            "type": "onSuggestion",
+            "title": "Buy train ticket",
+            "description": "Allow user to buy train ticket",
+            "value": {
+              "key_info": "Buy train ticket button",
+              "source": "ui_data"
+            },
+            "relation_key": ""
+          }
+        ],
+        "metadata": {}
+      },
+      {
+        "key": "2f00ad5475a67e026af87c47e0688990",
+        "title": "Plan my meet up",
+        "description": "Allow user to plan my meet up",
+        "interactions": [
+          {
+            "type": "onSuggestion",
+            "title": "Plan my meet up",
+            "description": "Allow user to plan my meet up",
+            "value": {
+              "key_info": "Plan my meet up button",
+              "source": "ui_data"
+            },
+            "relation_key": ""
+          }
+        ],
+        "metadata": {}
+      }
+    ]
+  }
