@@ -18,8 +18,6 @@ fix:  ## Fix code with ruff
 
 check: lint type-check  ## Run both linting and type checking
 
-all: format check  ## Run formatting, linting and type checking
-
 dev:  ## Start development server
 	$(HIDE).venv/bin/python -m uvicorn main:app --reload --host 0.0.0.0 --port $(port)
 
