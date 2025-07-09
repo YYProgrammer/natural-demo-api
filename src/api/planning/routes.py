@@ -13,6 +13,7 @@ from pydantic import BaseModel
 
 from src.api.planning.model.planning_flow_type import PlanningTypeEnum
 from src.api.planning.model.planning_interaction import PlanningInteraction
+from src.store.chat.chat_store import chat_store
 
 router = APIRouter(prefix="/ai_phone/planning", tags=["planning"])
 
@@ -147,12 +148,17 @@ async def planning_chat(request: PlanningChatRequest) -> StreamingResponse:
         流式JSON数据
     """
 
-    if request.query == "":
-        content = 'data: {"messages": []}\n'
+    # 如果有query参数，调用send_msg方法生成新的聊天室数据
+    if request.query:
+        chat_room = chat_store.send_msg(request.query, request.session_id)
     else:
-        content = f'data: {{"messages": [{{"id": 127483413327872, "role": "user", "type": "text", "content": {{"text": "{request.query}"}}}}, {{"id": 127483417473024, "role": "assistant", "type": "text", "content": {{"text": "Developing..."}}}}]}}'
+        # 否则直接获取聊天室数据
+        chat_room = chat_store.get_chat_room(request.session_id)
 
-    return StreamingResponse(content, media_type="text/event-stream")
+    # 流式返回聊天室数据
+    content = f'data: {json.dumps(chat_room)}\n\n'
+    
+    return StreamingResponse(iter([content]), media_type="text/event-stream")
 
 
 @router.post("/completions")
