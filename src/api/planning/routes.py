@@ -24,9 +24,12 @@ class PlanningRequest(BaseModel):
 
 def generate_stream(session_id: str, query: str) -> str:
     """生成流式响应数据"""
-    # 读取 response/a_to_b/1.json 文件
+    # 读取 src/api/planning/data/response_1.json 文件
     try:
-        with open("response/a_to_b/1.json", "r", encoding="utf-8") as f:
+        import os
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        data_file = os.path.join(current_dir, 'data', 'response_1.json')
+        with open(data_file, "r", encoding="utf-8") as f:
             response = json.load(f)
 
         # 更新 session_id 和 focus 字段

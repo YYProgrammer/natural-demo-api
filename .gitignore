@@ -254,5 +254,3 @@ uv.lock
 
 # Project specific
 # Add any project-specific files or directories here
-response/a_to_b/*.json
-!response/a_to_b/1.json
