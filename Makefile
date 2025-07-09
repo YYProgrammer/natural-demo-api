@@ -4,7 +4,7 @@ HIDE ?= @
 .PHONY: help lint type-check format check all dev standards-check
 
 name := "natural-demo-api"
-port := 5079
+port := 5001
 
 lint:  ## Run ruff linter
 	$(HIDE)ruff check src/

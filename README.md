@@ -80,7 +80,7 @@ uv run python main.py
 
 #### 方式2: 使用 uvicorn 直接运行
 ```bash
-uv run uvicorn main:app --reload --host 0.0.0.0 --port 5079
+uv run uvicorn main:app --reload --host 0.0.0.0 --port 5001
 ```
 
 #### 方式3: 使用 Makefile
@@ -103,22 +103,22 @@ python main.py
 
 #### 使用 uvicorn:
 ```bash
-uv run uvicorn main:app --host 0.0.0.0 --port 5079
+uv run uvicorn main:app --host 0.0.0.0 --port 5001
 ```
 
 #### 使用 gunicorn（需要安装）:
 ```bash
 uv add gunicorn
-uv run gunicorn main:app -w 4 -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:5079
+uv run gunicorn main:app -w 4 -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:5001
 ```
 
 ## 访问服务
 
 启动服务器后，可以通过以下方式访问：
 
-- **API 文档**: http://localhost:5079/docs
-- **健康检查**: http://localhost:5079/planning-api/api/health
-- **API 基础路径**: http://localhost:5079/planning-api/api
+- **API 文档**: http://localhost:5001/docs
+- **健康检查**: http://localhost:5001/planning-api/api/health
+- **API 基础路径**: http://localhost:5001/planning-api/api
 
 ## 代码质量工具
 
@@ -179,7 +179,7 @@ natural-demo-api/
 
 ## 配置说明
 
-- **端口**: 默认运行在 5079 端口
+- **端口**: 默认运行在 5001 端口
 - **API 前缀**: `/planning-api/api`
 - **开发模式**: 支持热重载
 - **文档**: 自动生成 Swagger UI 文档
@@ -191,7 +191,7 @@ natural-demo-api/
 1. **端口被占用**:
    ```bash
    # 查看端口占用
-   lsof -i :5079
+   lsof -i :5001
    # 或修改端口
    make dev port=8080
    ```

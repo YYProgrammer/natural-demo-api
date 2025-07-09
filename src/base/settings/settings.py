@@ -11,7 +11,7 @@ class Settings(BaseModel):
     """API配置类"""
 
     # API基本配置
-    api_port: int = 5079
+    api_port: int = 5001
     api_prefix: str = "/planning-api/api"
 
 
