@@ -45,8 +45,9 @@ def generate_stream(session_id: str, query: str, response_file: str) -> str:
     # 读取 src/api/planning/data/response_1.json 文件
     try:
         import os
+
         current_dir = os.path.dirname(os.path.abspath(__file__))
-        data_file = os.path.join(current_dir, 'data', response_file)
+        data_file = os.path.join(current_dir, "data", response_file)
         with open(data_file, "r", encoding="utf-8") as f:
             response = json.load(f)
 
@@ -158,6 +159,15 @@ async def planning_chat(request: PlanningChatRequest) -> StreamingResponse:
 async def planning_completions(request: PlanningRequest, http_request: Request) -> StreamingResponse:
     """
     规划完成API端点 - 流式响应
+
+    curl -X POST "http://localhost:5001/planning-api/api/ai_phone/planning/completions" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "session_id": "bb32bf31-7892-4069-ba6b-96ca4b80e886",
+        "stream": true,
+        "query": "hi"
+      }'
+
 
     Args:
         request: 包含 session_id, stream, query 的请求体
