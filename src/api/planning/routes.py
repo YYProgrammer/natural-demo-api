@@ -17,6 +17,7 @@ from src.api.planning.model.planning_flow_type import PlanningTypeEnum
 from src.api.planning.model.planning_interaction import PlanningInteraction
 from src.api.planning.model.save_part import SaveChatHistoryRequest
 from src.base.util.log_util import logger
+from src.services.notification.notification_service import notification_service
 from src.store.chat.chat_store import chat_store
 
 router = APIRouter(prefix="/ai_phone/planning", tags=["planning"])
@@ -192,6 +193,7 @@ async def planning_completions(request: PlanningRequest, http_request: Request) 
     planFlow = PlanningTypeEnum.from_string(plan_flow_name)
     if planFlow == PlanningTypeEnum.aTob:
         response_file = response_by_interactions(request.interactions)
+        _ = notification_service.request_chat_history(request.session_id, http_request.headers.get("authorization", ""))
         return StreamingResponse(
             stream_generator(request.session_id, request.query, response_file), media_type="text/event-stream"
         )
