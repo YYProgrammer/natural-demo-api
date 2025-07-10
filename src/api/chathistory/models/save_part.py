@@ -18,7 +18,7 @@ class ChatData(BaseModel):
     """聊天数据模型"""
 
     chat_name: str = Field(description="聊天名称/参与者", min_length=1)
-    messages: List[ChatMessage] = Field(description="消息列表", min_items=1)
+    messages: List[ChatMessage] = Field(description="消息列表")
 
 
 class SaveChatHistoryRequest(BaseModel):

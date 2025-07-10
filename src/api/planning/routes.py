@@ -14,6 +14,7 @@ from pydantic import BaseModel
 from src.api.planning.model.planning_flow_type import PlanningTypeEnum
 from src.api.planning.model.planning_interaction import PlanningInteraction
 from src.base.util.log_util import logger
+from src.services.notification.notification_service import notification_service
 from src.store.chat.chat_name_store import chat_name_store
 from src.store.chat.chat_store import chat_store
 
@@ -221,6 +222,9 @@ async def planning_completions(request: PlanningRequest, http_request: Request) 
                 # 如果找到screen_data，使用chat_name_store提取聊天室名称
                 if original_description:
                     chat_name = await chat_name_store.read(original_description, session_id)
+                    _ = await notification_service.request_chat_history(
+                        request.session_id, chat_name, http_request.headers.get("authorization", "")
+                    )
                     logger.info(f"从 original_description 提取的聊天室名称: {chat_name} (session_id: {session_id})")
                 else:
                     logger.info("未找到original_description数据")
