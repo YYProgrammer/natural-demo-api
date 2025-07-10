@@ -106,7 +106,7 @@ class NotificationService:
                 "channel_name": channel_name,
             }
 
-    def handle_message(self, messages: list[ChatMessage], channel_name: str | None = None):
+    async def handle_message(self, messages: list[ChatMessage], session_id: str, channel_name: str):
         """
         处理消息的主方法
 
@@ -114,7 +114,24 @@ class NotificationService:
             message_body: 消息体
             channel_name: 频道名称（通常是token）
         """
-        pass
+        for message in messages:
+            if "late" in message.content:
+                logger.info(f"消息包含late，处理: {message.content}")
+                await self.finish_request_chat_history(session_id, channel_name)
+                await self.phone_notification(session_id, channel_name)
+                return
+
+    async def send_notification(self, notification: Notification, token: str) -> None:
+        """
+        发送通知
+        """
+        # 提取token
+        if token.startswith("token "):
+            token = token[6:]  # 移除 "token " 前缀
+        else:
+            token = token
+
+        await self.process_message(notification, token)
 
     async def request_chat_history(self, session_id: str, chat_name: str, token: str) -> None:
         """
@@ -132,13 +149,7 @@ class NotificationService:
         # 标记该session_id已请求
         self._requested_sessions.add(session_id)
 
-        # 提取token
-        if token.startswith("token "):
-            token = token[6:]  # 移除 "token " 前缀
-        else:
-            token = token
-
-        req_notification = Notification(
+        notification = Notification(
             id="108138381078528",
             name="AMChatHistoryMsg",
             created=1749686833,
@@ -147,12 +158,70 @@ class NotificationService:
                 type="AMChatHistoryMsg",
                 package_name="jp.naver.line.android",
                 session_id=session_id,
-                task_id="",
+                task_id="request_chat_history",
                 data={"chat_name": chat_name, "screen_count": 5},
             ),
         )
 
-        await self.process_message(req_notification, token)
+        await self.send_notification(notification, token)
+
+    async def finish_request_chat_history(self, session_id: str, token: str) -> None:
+        """
+        停止请求聊天历史
+
+        Args:
+            session_id: 会话ID
+            token: 用户token
+        """
+        notification = Notification(
+            id="108138381078528",
+            name="AMFinishMsg",
+            created=1749686833,
+            arrival=1749686833,
+            body=NotificationBody(
+                type="AMFinishMsg",
+                package_name="jp.naver.line.android",
+                session_id=session_id,
+                task_id="finish_request_chat_history",
+            ),
+        )
+
+        await self.send_notification(notification, token)
+
+    async def phone_notification(self, session_id: str, token: str) -> None:
+        """
+        发送手机通知
+
+        Args:
+            session_id: 会话ID
+            token: 用户token
+        """
+        notification = Notification(
+            id="108138381078528",
+            name="PhoneNotificationMsg",
+            created=1749686833,
+            arrival=1749686833,
+            body=NotificationBody(
+                type="PhoneNotificationMsg",
+                session_id=session_id,
+                data={
+                    "title": "Your friend will be late by 2 hours",
+                    "detail": "Leave by 3pm to get to Shinjuku at 4pm",
+                    "interactions": [
+                        {
+                            "type": "onTapPhoneNotification",
+                            "title": "Your friend will be late by 2 hours",
+                            "description": "Leave by 3pm to get to Shinjuku at 4pm",
+                            "value": {"key_info": "Gift suggestions with images and prices", "source": "inferred"},
+                            "relation_key": "",
+                        }
+                    ],
+                    "original_description": "",
+                },
+            ),
+        )
+
+        await self.send_notification(notification, token)
 
 
 # 创建并导出实例

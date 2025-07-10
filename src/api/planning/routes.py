@@ -112,6 +112,12 @@ def response_by_interactions(interactions: list[PlanningInteraction]) -> str:
             return "a2b_step_3.json"
         elif interaction.type == "onViewRoute":
             return "a2b_step_4.json"
+        elif interaction.type == "onTapPhoneNotification":
+            return "a2b_step_5.json"
+        elif interaction.type == "onNotificationConfirm":
+            return "a2b_step_6.json"
+        elif interaction.type == "onNotificationCancel":
+            return "a2b_step_3.json"
         else:
             return "a2b_step_1.json"
 
