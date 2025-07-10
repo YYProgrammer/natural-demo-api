@@ -10,8 +10,9 @@ from typing import Any
 from fastapi import APIRouter, Header
 
 from src.api.chathistory.models.save_part import SaveChatHistoryRequest
-from src.base.util.log_util import logger
 from src.services.notification.notification_service import notification_service
+
+# from src.base.util.log_util import logger
 
 router = APIRouter(prefix="/remote", tags=["remote"])
 
@@ -34,35 +35,9 @@ curl 'http://localhost:5001/v1.0/invoke/planning-api/method/remote/im_chat_histo
         else:
             token = authorization
 
-    # 记录请求信息
-    logger.info("=== 保存聊天历史请求 ===")
-    logger.info(f"Token: {token}")
-    logger.info(f"Session ID: {request.session_id}")
-    logger.info(f"Task ID: {request.task_id}")
-    logger.info(f"Package Name: {request.package_name}")
-    logger.info(f"Type: {request.type}")
-    logger.info(f"Is Oldest Reached: {request.is_oldest_reached}")
-
-    # 记录聊天数据
-    logger.info(f"Chat Name: {request.data.chat_name}")
-    logger.info(f"Messages Count: {len(request.data.messages)}")
-
-    # 记录每条消息的详细信息
-    for i, message in enumerate(request.data.messages):
-        logger.info(f"Message {i + 1}:")
-        logger.info(f"  Content: {message.content}")
-        logger.info(f"  From Current User: {message.is_from_current_user}")
-        logger.info(f"  Timestamp: {message.timestamp}")
-        logger.info(f"  User Name: {message.user_name}")
-
-    logger.info("=== 请求处理完成 ===")
-
     await notification_service.handle_message(request.data.messages, request.session_id, token)
 
     return {
         "status": "success",
         "timestamp": datetime.now().isoformat(),
-        "session_id": request.session_id,
-        "task_id": request.task_id,
-        "messages_count": len(request.data.messages),
     }
