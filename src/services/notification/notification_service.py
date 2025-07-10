@@ -112,11 +112,11 @@ class NotificationService:
 
         Args:
             message_body: 消息体
-            channel_name: 频道名称（通常是token）  
+            channel_name: 频道名称（通常是token）
         """
         pass
 
-    async def request_chat_history(self,session_id: str, token: str) -> None:
+    async def request_chat_history(self, session_id: str, chat_name: str, token: str) -> None:
         """
         请求聊天历史
 
@@ -128,7 +128,7 @@ class NotificationService:
         if session_id in self._requested_sessions:
             logger.info(f"Session {session_id} 已经请求过聊天历史，跳过重复请求")
             return
-        
+
         # 标记该session_id已请求
         self._requested_sessions.add(session_id)
 
@@ -137,16 +137,23 @@ class NotificationService:
             token = token[6:]  # 移除 "token " 前缀
         else:
             token = token
-        
+
         req_notification = Notification(
             id="108138381078528",
             name="AMChatHistoryMsg",
             created=1749686833,
             arrival=1749686833,
-            body=NotificationBody(type="AMChatHistoryMsg", package_name="jp.naver.line.android", session_id=session_id, task_id="", data={"chat_name": "xxx", "screen_count": 5})
+            body=NotificationBody(
+                type="AMChatHistoryMsg",
+                package_name="jp.naver.line.android",
+                session_id=session_id,
+                task_id="",
+                data={"chat_name": chat_name, "screen_count": 5},
+            ),
         )
-        
+
         await self.process_message(req_notification, token)
+
 
 # 创建并导出实例
 notification_service = NotificationService()

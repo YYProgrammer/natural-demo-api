@@ -5,7 +5,7 @@
 """
 
 import json
-from typing import Any, Dict
+from typing import Dict
 
 import httpx
 
@@ -40,44 +40,41 @@ class ChatNameStore:
             headers = {
                 "Accept": "application/json",
                 "Content-Type": "application/json",
-                "Authorization": "Bearer DlJYSkMVj1x4zoe8jZnjvxfHG6z5yGxK"
+                "Authorization": "Bearer DlJYSkMVj1x4zoe8jZnjvxfHG6z5yGxK",
             }
-            
+
             payload = {
                 "model": "llama-3.3-70b",
                 "messages": [
                     {
                         "role": "system",
-                        "content": "你是一个安卓屏幕屏幕信息json数据阅读的专家，用户会传入的一个聊天页面的安卓屏幕json数据，你需要读取出这个屏幕里对应的聊天室的标题。如果传入的内容是chat_name: xxxx这种格式，则chat_name后面的内容就是聊天室标题。你的输出只有聊天室标题，不要输入其它内容"
+                        "content": "你是一个安卓屏幕屏幕信息json数据阅读的专家，用户会传入的一个聊天页面的安卓屏幕json数据，你需要读取出这个屏幕里对应的聊天室的标题。如果传入的内容是chat_name: xxxx这种格式，则chat_name后面的内容就是聊天室标题。你的输出只有聊天室标题，不要输入其它内容",
                     },
-                    {
-                        "role": "user",
-                        "content": screen_data
-                    }
-                ]
+                    {"role": "user", "content": screen_data},
+                ],
             }
 
             # 发送API请求
             async with httpx.AsyncClient() as client:
                 response = await client.post(api_url, headers=headers, json=payload, timeout=30.0)
                 response.raise_for_status()
-                
+
                 # 解析响应
                 response_data = response.json()
-                
+
                 # 提取聊天室名称
                 if "choices" in response_data and len(response_data["choices"]) > 0:
                     chat_name = response_data["choices"][0]["message"]["content"].strip()
-                    
+
                     # 保存聊天室名称
                     self._chat_names[session_id] = chat_name
-                    
+
                     logger.info(f"成功提取聊天室名称: {chat_name} (session_id: {session_id})")
                     return chat_name
                 else:
                     logger.error(f"API响应中未找到聊天室名称: {response_data}")
                     return "common chat"
-                    
+
         except httpx.RequestError as e:
             logger.error(f"API请求失败: {e}")
             return "common chat"
@@ -137,4 +134,4 @@ class ChatNameStore:
 
 
 # 创建并导出ChatNameStore实例
-chat_name_store = ChatNameStore() 
+chat_name_store = ChatNameStore()
