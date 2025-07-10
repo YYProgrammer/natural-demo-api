@@ -19,6 +19,7 @@ from src.api.planning.model.save_part import SaveChatHistoryRequest
 from src.base.util.log_util import logger
 from src.services.notification.notification_service import notification_service
 from src.store.chat.chat_store import chat_store
+from src.store.chat.chat_name_store import chat_name_store
 
 router = APIRouter(prefix="/ai_phone/planning", tags=["planning"])
 
@@ -129,6 +130,22 @@ async def planning_suggestions(request: PlanningSuggestionsRequest) -> JSONRespo
     Returns:
         JSON数据
     """
+    # 提取聊天室名称
+    chat_name = "common chat"  # 默认值
+    if hasattr(request, 'original_description') and request.original_description:
+        try:
+            # 使用 original_description 作为 screen_data，生成一个临时的 session_id
+            import uuid
+            temp_session_id = str(uuid.uuid4())
+            
+            # 调用 chat_name_store 的 read 方法提取聊天室名称
+            chat_name = await chat_name_store.read(request.original_description, temp_session_id)
+            logger.info(f"从 original_description 提取的聊天室名称: {chat_name}")
+            
+        except Exception as e:
+            logger.error(f"提取聊天室名称时发生错误: {str(e)}")
+            chat_name = "common chat"  # 出错时使用默认值
+    
     # 返回 data 目录下的 suggestions.json 的内容
     import os
 
@@ -136,6 +153,10 @@ async def planning_suggestions(request: PlanningSuggestionsRequest) -> JSONRespo
     try:
         with open(suggestions_path, "r", encoding="utf-8") as f:
             suggestions_data = json.load(f)
+        
+        # 在返回的数据中添加 original_description 字段，值为提取到的聊天室名称
+        suggestions_data["original_description"] = f"chat_name: {chat_name}" 
+        
     except Exception as e:
         # 如果读取或解析失败，返回错误信息
         return JSONResponse(content={"error": f"无法读取 suggestions.json: {str(e)}"})
@@ -188,6 +209,32 @@ async def planning_completions(request: PlanningRequest, http_request: Request) 
     Returns:
         流式JSON数据
     """
+
+    # 尝试从请求中获取屏幕数据来识别聊天室名称
+    try:
+        # 获取请求体中的原始数据
+        request_body = await http_request.body()
+        if request_body:
+            # 尝试解析请求体，查看是否包含screen_data字段
+            try:
+                body_data = json.loads(request_body.decode('utf-8'))
+                original_description = body_data.get('original_description')
+                session_id = body_data.get('session_id')
+                
+                # 如果找到screen_data，使用chat_name_store提取聊天室名称
+                if original_description:
+                    chat_name = await chat_name_store.read(original_description, session_id)
+                    logger.info(f"从 original_description 提取的聊天室名称: {chat_name} (session_id: {session_id})")
+                else:
+                    logger.info(f"未找到original_description数据")
+                    chat_name = "common chat"  # 出错时使用默认值
+                        
+            except json.JSONDecodeError:
+                # 如果JSON解析失败，尝试使用整个请求体作为屏幕数据
+                chat_name = "common chat"  # 出错时使用默认值
+                    
+    except Exception as e:
+        logger.error(f"提取聊天室名称时发生错误: {str(e)}")
 
     plan_flow_name = http_request.headers.get("plan-flow-name", "")
     planFlow = PlanningTypeEnum.from_string(plan_flow_name)
