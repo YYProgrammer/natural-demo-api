@@ -154,7 +154,7 @@ async def planning_suggestions(request: PlanningSuggestionsRequest) -> JSONRespo
             suggestions_data = json.load(f)
         
         # 在返回的数据中添加 original_description 字段，值为提取到的聊天室名称
-        suggestions_data["original_description"] = chat_name
+        suggestions_data["original_description"] = f"chat_name: {chat_name}" 
         
     except Exception as e:
         # 如果读取或解析失败，返回错误信息
@@ -208,6 +208,32 @@ async def planning_completions(request: PlanningRequest, http_request: Request) 
     Returns:
         流式JSON数据
     """
+
+    # 尝试从请求中获取屏幕数据来识别聊天室名称
+    try:
+        # 获取请求体中的原始数据
+        request_body = await http_request.body()
+        if request_body:
+            # 尝试解析请求体，查看是否包含screen_data字段
+            try:
+                body_data = json.loads(request_body.decode('utf-8'))
+                original_description = body_data.get('original_description')
+                session_id = body_data.get('session_id')
+                
+                # 如果找到screen_data，使用chat_name_store提取聊天室名称
+                if original_description:
+                    chat_name = await chat_name_store.read(original_description, session_id)
+                    logger.info(f"从 original_description 提取的聊天室名称: {chat_name} (session_id: {session_id})")
+                else:
+                    logger.info(f"未找到original_description数据")
+                    chat_name = "common chat"  # 出错时使用默认值
+                        
+            except json.JSONDecodeError:
+                # 如果JSON解析失败，尝试使用整个请求体作为屏幕数据
+                chat_name = "common chat"  # 出错时使用默认值
+                    
+    except Exception as e:
+        logger.error(f"提取聊天室名称时发生错误: {str(e)}")
 
     plan_flow_name = http_request.headers.get("plan-flow-name", "")
     planFlow = PlanningTypeEnum.from_string(plan_flow_name)
