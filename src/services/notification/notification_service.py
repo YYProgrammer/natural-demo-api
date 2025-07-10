@@ -2,8 +2,8 @@ import base64
 
 import aiohttp
 
+from src.api.chathistory.models.save_part import ChatMessage
 from src.api.notification.models.request import Notification, NotificationBody
-from src.api.planning.model.save_part import ChatMessage
 from src.base.util.log_util import logger
 
 
