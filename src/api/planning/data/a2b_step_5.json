@@ -12,9 +12,9 @@
         "interaction_value": "",
         "interaction_template": "",
         "cards": [
-        {
+          {
                 "name": "Notification",
-                "key": "LA9B2cX5pQ45",
+                "key": "LA9B2cX5pQ12",
                 "state": "active",
                 "title": "Notification",
                 "description": "",
@@ -66,7 +66,7 @@
                         ]
                     }
                 }
-              },
+          },
           {
             "name": "Schedule",
             "key": "LA9B2cX5pQ45",
