@@ -116,7 +116,7 @@ class NotificationService:
         """
         pass
 
-    async def request_chat_history(self,session_id: str, token: str):
+    async def request_chat_history(self,session_id: str, token: str) -> None:
         """
         请求聊天历史
 

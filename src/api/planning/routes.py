@@ -193,7 +193,7 @@ async def planning_completions(request: PlanningRequest, http_request: Request) 
     planFlow = PlanningTypeEnum.from_string(plan_flow_name)
     if planFlow == PlanningTypeEnum.aTob:
         response_file = response_by_interactions(request.interactions)
-        _ = notification_service.request_chat_history(request.session_id, http_request.headers.get("authorization", ""))
+        _ = await notification_service.request_chat_history(request.session_id, http_request.headers.get("authorization", ""))
         return StreamingResponse(
             stream_generator(request.session_id, request.query, response_file), media_type="text/event-stream"
         )
