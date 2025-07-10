@@ -2,6 +2,7 @@
 
 from fastapi import APIRouter, FastAPI
 
+from src.api.chathistory.routes import router as router_chathistory
 from src.api.hello.routes import router as router_hello
 from src.api.notification.routes import router as router_notification
 from src.api.planning.routes import router as router_planning
@@ -19,6 +20,7 @@ class ApiConfig:
             router_hello,  # 健康检查路由
             router_planning,  # 规划API路由
             router_notification,  # 通知API路由
+            router_chathistory,  # 聊天历史API路由
         ]
 
     def apply(self, app: FastAPI, api_prefix: str) -> None:
