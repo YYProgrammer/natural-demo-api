@@ -1,0 +1,17 @@
+{
+    "session_id": "ff8f8f4d-9b13-4632-92c8-643118d60de7",
+    "screens": [
+        {
+            "name": "main",
+            "key": "e77b28b0c42672dba773d7564f6dda4a",
+            "state": "active",
+            "title": "Group Travel Planning",
+            "description": "Main screen for collaborative travel planning and coordination.",
+            "icon": "",
+            "focus": "",
+            "interaction_value": "",
+            "interaction_template": "",
+            "cards": []
+        }
+    ]
+}

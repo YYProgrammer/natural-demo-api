@@ -132,6 +132,12 @@ class ChatNameStore:
         """
         return self._chat_names.copy()
 
+    def save(self, chat_name: str, session_id: str) -> None:
+        """
+        保存聊天室名称
+        """
+        self._chat_names[session_id] = chat_name
+
 
 # 创建并导出ChatNameStore实例
 chat_name_store = ChatNameStore()

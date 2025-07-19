@@ -1,0 +1,155 @@
+{
+    "session_id": "ff8f8f4d-9b13-4632-92c8-643118d60de7",
+    "screens": [
+        {
+            "name": "main",
+            "key": "5f5322d01b615a784b1076f8f4e44013",
+            "state": "active",
+            "title": "Create a party plan",
+            "description": "Overview of the party plan creation process.",
+            "icon": "",
+            "focus": "I want to create a party plan",
+            "interaction_value": "",
+            "interaction_template": "",
+            "hint": "You can use your phone while the tasks runs",
+            "cards": [
+                {
+                    "name": "AgentPerformance",
+                    "key": "bfd0489d686d747d",
+                    "state": "active",
+                    "title": "Coordination Agent",
+                    "description": "",
+                    "focus": "",
+                    "icon": "https://dopniceu5am9m.cloudfront.net/static/planning/new_icon/hotel.png",
+                    "interaction_value": "",
+                    "interaction_template": "",
+                    "loading": false,
+                    "metadata": {
+                        "completed": true,
+                        "subtitle": "Gathering party details",
+                        "action_model_screen": {
+                            "app_icon": "",
+                            "start_time": "345325325"
+                        }
+                    }
+                },
+                {
+                    "name": "PartyCollectedInfo",
+                    "key": "b07ba0b01b120aa8",
+                    "state": "active",
+                    "title": "Collected Information",
+                    "description": "Party details summary",
+                    "focus": "",
+                    "icon": "https://dopniceu5am9m.cloudfront.net/static/planning/new_icon/hotel.png",
+                    "interaction_value": "",
+                    "interaction_template": "",
+                    "loading": false,
+                    "metadata": {
+                        "widgets": [
+                            {
+                                "name": "Address",
+                                "metadata": {
+                                    "address_detail": "富士山下的小酒馆",
+                                    "address_location": "39.983424,116.322987",
+                                    "party_name": "Unicorn Adventure",
+                                    "start_time": "Sat, July 15th, 2:00 PM - 5:00 PM"
+                                }
+                            },
+                            {
+                                "name": "Allergies",
+                                "metadata": {
+                                    "allergies": [
+                                        "Tommy (nut allergy) ",
+                                        "Emma (dairy-free)"
+                                    ]
+                                }
+                            },
+                            {
+                                "name": "Attendees",
+                                "metadata": {
+                                    "attendees": 8,
+                                    "ages": "7-9"
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "PartyChooseMeal",
+                    "key": "b07ba0b01b120aa4",
+                    "state": "active",
+                    "title": "Choose Your Meal",
+                    "description": "",
+                    "focus": "",
+                    "icon": "https://dopniceu5am9m.cloudfront.net/static/planning/new_icon/hotel.png",
+                    "interaction_value": "",
+                    "interaction_template": "",
+                    "loading": false,
+                    "metadata": {
+                        "subtitle": "Allergy-safe meal options",
+                        "status_text": "Waiting for agent",
+                        "recipes": [
+                            {
+                                "id": "e9f034a0-6d28-41c7-84d8-00d5e974cd07",
+                                "name": "お手軽ジューシー！いなり寿司",
+                                "image": "https://video.kurashiru.com/production/videos/e9f034a0-6d28-41c7-84d8-00d5e974cd07/compressed_thumbnail_square_normal.jpg?1749487672"
+                            },
+                            {
+                                "id": "52be670e-2523-492e-b7e5-ed5757a71650",
+                                "name": "野菜を楽しもう! やみつき爆盛りしょう...",
+                                "image": "https://video.kurashiru.com/production/videos/52be670e-2523-492e-b7e5-ed5757a71650/compressed_thumbnail_square_normal.jpg?1742234574"
+                            }
+                        ],
+                        "buttons": [
+                            {
+                                "key": "01c001",
+                                "title": "Confirm",
+                                "description": "",
+                                "interactions": [
+                                    {
+                                        "type": "onChooseMealConfirm",
+                                        "title": "Confirm",
+                                        "description": "User clicked Confirm",
+                                        "value": "Adfwe01,Bsadf92",
+                                        "relation_key": "b07ba0b01b1 20aa2"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "PartyMealShoppingList",
+                    "key": "b07ba0b01b120aa3",
+                    "state": "inactive",
+                    "title": "Dinner Shopping List",
+                    "description": "",
+                    "focus": "",
+                    "icon": "https://dopniceu5am9m.cloudfront.net/static/planning/new_icon/hotel.png",
+                    "interaction_value": "",
+                    "interaction_template": "",
+                    "loading": false,
+                    "metadata": {
+                        "subtitle": "Allergy-safe meal options",
+                        "status_text": "Waiting for decision",
+                        "shopping_list": [],
+                        "onShoppingListConfirm": {
+                            "key": "01c001",
+                            "title": "Confirm",
+                            "description": "",
+                            "interactions": [
+                                {
+                                    "type": "onShoppingListConfirm",
+                                    "title": "Confirm",
+                                    "description": "User clicked Confirm",
+                                    "value": "Adfwe01,Bsadf92",
+                                    "relation_key": "b07ba0b01b1 20aa2"
+                                }
+                            ]
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

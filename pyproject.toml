@@ -1,39 +1,50 @@
 [project]
-name = "fastapi-demo"
+name = "seedo-agent-api"
 version = "0.1.0"
-description = "A simple FastAPI demo project"
-requires-python = ">=3.11"
+description = "Add your description here"
+readme = "README.md"
+requires-python = "==3.12.10"
 dependencies = [
-    "aiohttp>=3.12.13",
-    "fastapi>=0.115.13",
-    "httpx>=0.27.0",
-    "logging>=0.4.9.6",
-    "uvicorn[standard]>=0.24.0",
+    "aiohttp==3.11.16",
+    "fastapi==0.115.12",
+    "httpx==0.28.1",
+    "injector==0.22.0",
+    "jsonfinder==0.4.2",
+    "psycopg==3.2.6",
+    "psycopg2-binary==2.9.10",
+    "pyee==12.1.1",
+    "pyjwt==2.10.1",
+    "python-dotenv==1.1.0",
+    "requests==2.32.3",
+    "snowflake-tool==1.0.0",
+    "uvicorn==0.34.0",
+    "python-ulid==3.0.0",
+    "Pillow==10.2.0",
+    "groq==0.23.1"
 ]
-
-[build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
-
-[project.optional-dependencies]
-dev = [
-    "mypy==1.15.0",
-    "ruff==0.11.5",
-]
-
-[tool.hatch.build.targets.wheel]
-packages = ["src"]
-
-[tool.mypy]
-python_version = "3.12"
-disable_error_code = ["arg-type", "attr-defined", "call-overload"]
-#disallow_untyped_defs = true        # 强制函数必须有类型注解
-disallow_any_unimported = true      # 检测不存在的导入
 
 [dependency-groups]
 dev = [
     "mypy==1.15.0",
+    "nuitka==2.6.9",
+    "pex==2.33.7",
     "ruff==0.11.5",
+    "setuptools==78.1.0",
+    "pytest==8.0.0",
+    "pytest-asyncio==0.23.5",
+    "pytest-cov==4.1.0",
+    "pytest-order==1.3.0",
+    "httpx==0.28.1",
 ]
+
+[[tool.uv.index]]
+url = "https://mirrors.aliyun.com/pypi/simple"
+default = true
+
+[tool.mypy]
+python_version = "3.12.10"
+disable_error_code = ["arg-type", "attr-defined", "call-overload"]
+#disallow_untyped_defs = true        # 强制函数必须有类型注解
+disallow_any_unimported = true      # 检测不存在的导入
 #warn_return_any = true              # 检测返回 Any 类型
 #warn_unused_ignores = true          # 检测无用的类型忽略

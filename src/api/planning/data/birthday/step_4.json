@@ -1,0 +1,72 @@
+{
+    "session_id": "ff8f8f4d-9b13-4632-92c8-643118d60de7",
+    "screens": [
+        {
+            "name": "main",
+            "key": "5f5322d01b615a784b1076f8f4e44013",
+            "state": "active",
+            "title": "Create a party plan",
+            "description": "Overview of the party plan creation process.",
+            "icon": "",
+            "focus": "I want to create a party plan",
+            "interaction_value": "",
+            "interaction_template": "",
+            "hint": "You can use your phone while the tasks runs",
+            "cards": [
+                {
+                    "name": "AgentPerformance",
+                    "key": "bfd0489d686d747d",
+                    "state": "active",
+                    "title": "Coordination Agent",
+                    "description": "",
+                    "focus": "",
+                    "icon": "https://dopniceu5am9m.cloudfront.net/static/planning/new_icon/hotel.png",
+                    "interaction_value": "",
+                    "interaction_template": "",
+                    "loading": false,
+
+                    "metadata": {
+                        "subtitle": "Gathering party details",
+                        "action_model_screen": {
+                            "app_icon": "",
+                            "start_time": "345325325"
+                        }
+                    }
+                },
+                {
+                    "name": "PartyChooseMeal",
+                    "key": "b07ba0b01b120aa2",
+                    "state": "inactive",
+                    "title": "Meal Prep",
+                    "description": "",
+                    "focus": "",
+                    "icon": "https://dopniceu5am9m.cloudfront.net/static/planning/new_icon/hotel.png",
+                    "interaction_value": "",
+                    "interaction_template": "",
+                    "loading": false,
+                    "metadata": {
+                        "subtitle": "Allergy-safe meal options",
+                        "status_text": "Waiting for agent",
+                        "recipes": [],
+                        "buttons": [
+                            {
+                                "key": "01c001",
+                                "title": "Confirm",
+                                "description": "",
+                                "interactions": [
+                                    {
+                                        "type": "onChooseMealConfirm",
+                                        "title": "Confirm",
+                                        "description": "User clicked Confirm",
+                                        "value": "Adfwe01,Bsadf92",
+                                        "relation_key": "b07ba0b01b1 20aa2"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    ]
+}

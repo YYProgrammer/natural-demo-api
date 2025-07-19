@@ -1,32 +1,22 @@
 SHELL := /bin/bash
 HIDE ?= @
 
-.PHONY: help lint type-check format check all dev standards-check
+.PHONY: build test
 
-name := "natural-demo-api"
-port := 5001
+name := "mockhub"
+port := 11915
 
-lint:  ## Run ruff linter
-	$(HIDE)uv run ruff check src/
+gen:
+	-$(HIDE)rm -rf .venv
+	$(HIDE)uv venv .venv --python=3.12.10
+	$(HIDE)source .venv/bin/activate && uv sync
 
-type-check:  ## Run mypy type checker
-	$(HIDE)uv run mypy src/
+fix:
+	$(HIDE)source .venv/bin/activate && uv run ruff format
+	$(HIDE)source .venv/bin/activate && uv run ruff check --fix
 
-fix:  ## Fix code with ruff
-	$(HIDE)uv run ruff format src/
-	$(HIDE)uv run ruff check --fix src/
+check:
+	$(HIDE)source .venv/bin/activate && MYPY_FORCE_COLOR=1 uv run mypy src/ --color-output | grep --color=always -v "note:"
 
-check: lint type-check  ## Run both linting and type checking
-
-dev:  ## Start development server
-	$(HIDE).venv/bin/python -m uvicorn main:app --reload --host 0.0.0.0 --port $(port)
-
-gen:  ## Generate new virtual environment
-# $(HIDE)@if [ ! -f .env ]; then cp make/env.example .env; fi
-	$(HIDE)rm -rf .venv
-	$(HIDE)uv venv .venv --python=3.12
-	$(HIDE)uv sync
-
-install:  ## Install dependencies
-	$(HIDE)python3 -m venv .venv
-	$(HIDE).venv/bin/pip install uv
+dev:
+	$(HIDE)source .venv/bin/activate && uv run uvicorn src.main:app --port $(port) --reload --host 0.0.0.0

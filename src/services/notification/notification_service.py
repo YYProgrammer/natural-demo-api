@@ -1,10 +1,12 @@
 import base64
+from typing import Any
 
 import aiohttp
 
 from src.api.chathistory.models.save_part import ChatMessage
 from src.api.notification.models.request import Notification, NotificationBody
 from src.base.util.log_util import logger
+from src.store.chat.chat_name_store import chat_name_store
 
 
 def filter_none_values(data):
@@ -114,11 +116,17 @@ class NotificationService:
             message_body: 消息体
             channel_name: 频道名称（通常是token）
         """
-        for message in messages:
-            if "late" in message.content:
-                logger.info(f"消息包含late，处理: {message.content}")
+
+        logger.info(f"handle_message: {messages}, {session_id}, {channel_name}")
+
+        if messages:
+            last_message = messages[-1]
+            if "late" in last_message.content.lower():
+                logger.info(f"消息包含late，处理: {last_message.content}")
                 await self.finish_request_chat_history(session_id, channel_name)
-                await self.phone_notification(session_id, channel_name)
+                chat_name = chat_name_store.get_chat_name(session_id)
+                logger.info(f"handle_message chat_name: {chat_name}")
+                await self.phone_notification(session_id, channel_name, chat_name)
                 return
 
     async def send_notification(self, notification: Notification, token: str) -> None:
@@ -188,7 +196,7 @@ class NotificationService:
 
         await self.send_notification(notification, token)
 
-    async def phone_notification(self, session_id: str, token: str) -> None:
+    async def phone_notification(self, session_id: str, token: str, chat_name: str) -> None:
         """
         发送手机通知
 
@@ -212,12 +220,215 @@ class NotificationService:
                             "type": "onTapPhoneNotification",
                             "title": "Your friend will be late by 2 hours",
                             "description": "Leave by 3pm to get to Shinjuku at 4pm",
-                            "value": {"key_info": "Gift suggestions with images and prices", "source": "inferred"},
+                            "value": {"chat_name": chat_name},
                             "relation_key": "",
                         }
                     ],
                     "original_description": "",
                 },
+            ),
+        )
+
+        await self.send_notification(notification, token)
+
+    async def calendar_saved_phone_notification(self, session_id: str, token: str) -> None:
+        """
+        发送手机通知
+
+        Args:
+            session_id: 会话ID
+            token: 用户token
+        """
+        notification = Notification(
+            id="108138381078528",
+            name="PhoneNotificationMsg",
+            created=1749686833,
+            arrival=1749686833,
+            body=NotificationBody(
+                type="PhoneNotificationMsg",
+                session_id=session_id,
+                data={
+                    "title": "Calendar saved",
+                    "detail": "Calendar saved",
+                    "interactions": [],
+                    "original_description": "",
+                },
+            ),
+        )
+
+        await self.send_notification(notification, token)
+
+    async def send_chat_message(
+        self, session_id: str, chat_name: str, message_list: list[str], token: str, task_id: str = ""
+    ) -> None:
+        """
+        发送聊天消息
+
+        Args:
+            session_id: 会话ID
+            chat_name: 聊天名称
+            message_list: 消息列表
+            token: 用户token
+            task_id: 任务ID（可选）
+        """
+        notification = Notification(
+            id="108138381078528",
+            name="AMSentChatMsg",
+            created=1749686833,
+            arrival=1749686833,
+            body=NotificationBody(
+                type="AMSentChatMsg",
+                package_name="jp.naver.line.android",
+                session_id=session_id,
+                task_id=task_id,
+                data={
+                    "chat_name": chat_name,
+                    "message_list": message_list,
+                },
+            ),
+        )
+
+        await self.send_notification(notification, token)
+
+    async def send_chat_hide(
+        self, session_id: str, chat_name: str, message_list: list[str], token: str, task_id: str = ""
+    ) -> None:
+        """
+        发送聊天消息
+
+        Args:
+            session_id: 会话ID
+            chat_name: 聊天名称
+            message_list: 消息列表
+            token: 用户token
+            task_id: 任务ID（可选）
+        """
+        notification = Notification(
+            id="108138381078528",
+            name="PlanningChatHideMsg",
+            created=1749686833,
+            arrival=1749686833,
+            body=NotificationBody(
+                type="PlanningChatHideMsg",
+                session_id=session_id,
+            ),
+        )
+
+        await self.send_notification(notification, token)
+
+    async def send_plan_reload(
+        self, session_id: str, chat_name: str, message_list: list[str], token: str, task_id: str = ""
+    ) -> None:
+        """
+        发送聊天消息
+
+        Args:
+            session_id: 会话ID
+            chat_name: 聊天名称
+            message_list: 消息列表
+            token: 用户token
+            task_id: 任务ID（可选）
+        """
+        notification = Notification(
+            id="108138381078528",
+            name="PlanningReloadMsg",
+            created=1749686833,
+            arrival=1749686833,
+            body=NotificationBody(
+                type="PlanningReloadMsg",
+                session_id=session_id,
+                interactions=[
+                    {
+                        "type": "onBirthdayPlanningReload",
+                        "title": "Birthday Planning Reload",
+                        "description": "Birthday Planning Reload",
+                        "value": {},
+                        "relation_key": "",
+                    }
+                ],
+            ),
+        )
+
+        await self.send_notification(notification, token)
+
+    async def send_plan_reload_chat_hide(self, session_id: str, token: str) -> None:
+        """
+        发送聊天消息
+        """
+        await self.send_plan_reload(session_id, "common chat", [], token)
+        await self.send_chat_hide(session_id, "common chat", [], token)
+
+    async def birthday_agent_update(self, session_id: str, token: str, interaction_type: str) -> None:
+        """
+        发送生日 agent 更新通知
+        """
+        notification = Notification(
+            id="108138381078528",
+            name="PlanningReloadMsg",
+            created=1749686833,
+            arrival=1749686833,
+            body=NotificationBody(
+                type="PlanningReloadMsg",
+                session_id=session_id,
+                interactions=[
+                    {
+                        "type": interaction_type,
+                        "title": "",
+                        "description": "",
+                        "value": {},
+                        "relation_key": "",
+                    }
+                ],
+            ),
+        )
+
+        await self.send_notification(notification, token)
+
+    async def birthday_agent_update_v2(self, session_id: str, token: str, messages: list[dict[str, Any]]) -> None:
+        """
+        发送生日 agent 更新通知
+        """
+        notification = Notification(
+            id="108138381078528",
+            name="ChatHistoryLatestMsg",
+            created=1749686833,
+            arrival=1749686833,
+            body=NotificationBody(
+                is_oldest_reached=True,
+                type="ChatHistoryLatestMsg",
+                session_id=session_id,
+                package_name="jp.naver.line.android",
+                data={
+                    "chat_name": "王和平, 李菊巨, Hilman obuy, KevinVasa",
+                    "user_icons": [{"user_name": "王和平", "user_icon": ""}],
+                    "messages": messages,
+                },
+            ),
+        )
+
+        await self.send_notification(notification, token)
+
+    async def birthday_agent_done(self, session_id: str, token: str) -> None:
+        """
+        发送生日 agent 完成通知
+        """
+        notification = Notification(
+            id="108138381078528",
+            name="PlanningReloadMsg",
+            created=1749686833,
+            arrival=1749686833,
+            body=NotificationBody(
+                type="PlanningReloadMsg",
+                session_id=session_id,
+                interactions=[
+                    {
+                        "type": "onBirthdayPlanningDone",
+                        "title": "",
+                        "description": "",
+                        "value": {},
+                        "relation_key": "",
+                    }
+                ],
             ),
         )
 

@@ -3,6 +3,7 @@ from enum import Enum
 
 class PlanningTypeEnum(str, Enum):
     aTob = "a_to_b"
+    birthday = "birthday"
     none = ""
 
     @classmethod
@@ -20,5 +21,7 @@ class PlanningTypeEnum(str, Enum):
         """
         if value == "a_to_b":
             return cls.aTob
+        elif value == "birthday":
+            return cls.birthday
         else:
             return cls.none

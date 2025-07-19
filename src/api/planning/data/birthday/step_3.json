@@ -1,0 +1,58 @@
+{
+    "session_id": "7210590d-e36c-4240-aff0-8ee446281035",
+    "screens": [
+        {
+            "name": "main",
+            "key": "8acbe8b0112df3305450381d9c06e098",
+            "state": "active",
+            "title": "Group Travel Planning",
+            "description": "Main screen for collaborative travel planning and coordination.",
+            "icon": "",
+            "focus": "plan a trip with my line friends",
+            "interaction_value": "",
+            "interaction_template": "",
+            "cards": [
+                {
+                    "name": "ReadMessageWithAM",
+                    "key": "ef59da3ec3091a2dbd651a36fed8a717",
+                    "state": "active",
+                    "title": "Member Information",
+                    "description": "Gather member information, preferences, and coordinate group dynamics",
+                    "focus": "Group Member Coordination",
+                    "icon": "https://dopniceu5am9m.cloudfront.net/static/planning/new_icon/learn_about.png",
+                    "interaction_value": "",
+                    "interaction_template": "",
+                    "loading": false,
+                    "metadata": {
+                        "description": "",
+                        "state": "load_chat_list",
+                        "access_permission": null,
+                        "contacts": {
+                            "app_info": {
+                                "icon_url": "https://img.icons8.com/color/48/line-me.png",
+                                "app_name": "Line"
+                            },
+                            "selection_type": "single",
+                            "contact_list": [],
+                            "buttons": [
+                                {
+                                    "key": "01005",
+                                    "title": "Confirm",
+                                    "interactions": [
+                                        {
+                                            "type": "onContactConfirm",
+                                            "title": "Confirm Contact Selection",
+                                            "description": "User confirmed contact selection",
+                                            "value": "",
+                                            "relation_key": "LA9B2cX5pud10"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

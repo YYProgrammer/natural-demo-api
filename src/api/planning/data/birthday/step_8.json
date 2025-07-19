@@ -1,0 +1,100 @@
+{
+    "session_id": "ff8f8f4d-9b13-4632-92c8-643118d60de7",
+    "screens": [
+        {
+            "name": "main",
+            "key": "5f5322d01b615a784b1076f8f4e44013",
+            "state": "active",
+            "title": "Create a party plan",
+            "description": "Overview of the party plan creation process.",
+            "icon": "",
+            "focus": "I want to create a party plan",
+            "interaction_value": "",
+            "interaction_template": "",
+            "cards": [
+                {
+                    "name": "AgentPerformance",
+                    "key": "LA9B2cX5pQ45",
+                    "state": "active",
+                    "title": "Agent Performance",
+                    "description": "",
+                    "focus": "",
+                    "icon": "https://dopniceu5am9m.cloudfront.net/static/planning/new_icon/hotel.png",
+                    "interaction_value": "",
+                    "interaction_template": "",
+                    "loading": false,
+                    "metadata": {
+                        "title": "Checking with Moms",
+                        "subtitle": "100%",
+                        "description": "Planning completed."
+                    }
+                },
+                {
+                    "name": "PartyStart",
+                    "key": "b07ba0b01b120aa2",
+                    "state": "inactive",
+                    "title": "Party starts at",
+                    "description": "",
+                    "focus": "",
+                    "icon": "https://dopniceu5am9m.cloudfront.net/static/planning/new_icon/notes_about.png",
+                    "interaction_value": "6PM",
+                    "interaction_template": "",
+                    "loading": false,
+                    "metadata": {}
+                },
+                {
+                    "name": "PartyAttendant",
+                    "key": "b07ba0b01b120aa3",
+                    "state": "inactive",
+                    "title": "Who will attend",
+                    "description": "",
+                    "focus": "",
+                    "icon": "https://dopniceu5am9m.cloudfront.net/static/planning/new_icon/notes_about.png",
+                    "interaction_value": "Yuta\nNana\nCocomi",
+                    "interaction_template": "",
+                    "loading": false,
+                    "metadata": {}
+                },
+                {
+                    "name": "PartyAllergy",
+                    "key": "0536555a9fdc981d",
+                    "state": "inactive",
+                    "title": "Allergies",
+                    "description": "",
+                    "focus": "",
+                    "icon": "https://dopniceu5am9m.cloudfront.net/static/planning/new_icon/notes_about.png",
+                    "interaction_value": "Peanut\nShrimp",
+                    "interaction_template": "",
+                    "loading": false,
+                    "metadata": {}
+                },
+                {
+                    "name": "GroceryList",
+                    "key": "LA9B2cX5pQ44",
+                    "state": "active",
+                    "title": "Grocery List",
+                    "description": "",
+                    "focus": "",
+                    "icon": "https://dopniceu5am9m.cloudfront.net/static/planning/new_icon/hotel.png",
+                    "interaction_value": "Genterated",
+                    "interaction_template": "",
+                    "loading": false,
+                    "metadata": {
+                        "grocery_list": [
+                            {
+                                "icon": "https://dopniceu5am9m.cloudfront.net/static/planning/new_icon/hotel.png",
+                                "title": "Egg",
+                                "subtitle": "1"
+                            },
+                            {
+                                "icon": "https://dopniceu5am9m.cloudfront.net/static/planning/new_icon/hotel.png",
+                                "title": "Tomatoes",
+                                "subtitle": "80g"
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    ]
+}

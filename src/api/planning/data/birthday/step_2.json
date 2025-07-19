@@ -1,0 +1,76 @@
+{
+    "session_id": "7210590d-e36c-4240-aff0-8ee446281035",
+    "screens": [
+        {
+            "name": "main",
+            "key": "8acbe8b0112df3305450381d9c06e098",
+            "state": "active",
+            "title": "Group Travel Planning",
+            "description": "Main screen for collaborative travel planning and coordination.",
+            "icon": "",
+            "focus": "plan a trip with my line friends",
+            "interaction_value": "",
+            "interaction_template": "",
+            "cards": [
+                {
+                    "name": "ReadMessageWithAM",
+                    "key": "ef59da3ec3091a2dbd651a36fed8a717",
+                    "state": "active",
+                    "title": "Member Information",
+                    "description": "Gather member information, preferences, and coordinate group dynamics",
+                    "focus": "Group Member Coordination",
+                    "icon": "https://dopniceu5am9m.cloudfront.net/static/planning/new_icon/learn_about.png",
+                    "interaction_value": "",
+                    "interaction_template": "",
+                    "loading": false,
+                    "metadata": {
+                        "description": "",
+                        "state": "initial",
+                        "access_permission": {
+                            "apps": [
+                                {
+                                    "icon_url": "https://dopniceu5am9m.cloudfront.net/static/planning/appicon/line.png",
+                                    "app_name": "",
+                                    "package_name": "jp.naver.line.android"
+                                }
+                            ],
+                            "title": "Access permission",
+                            "subtitle": "Allow permission to access your calendar",
+                            "buttons": [
+                                {
+                                    "key": "59e2dfcd-69eb-47b8-ad88-e2e045810844",
+                                    "title": "Reject",
+                                    "description": "User clicked Reject",
+                                    "interactions": [
+                                        {
+                                            "type": "onAccessPermissionReject",
+                                            "title": "Reject",
+                                            "description": "User clicked Reject",
+                                            "value": null,
+                                            "relation_key": "ef59da3ec3091a2dbd651a36fed8a717"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "key": "61e96340-a0ff-4d4b-aa68-7e8feb857eb9",
+                                    "title": "Confirm",
+                                    "description": "User clicked Confirm",
+                                    "interactions": [
+                                        {
+                                            "type": "onAccessPermissionConfirm",
+                                            "title": "Confirm",
+                                            "description": "User clicked Confirm",
+                                            "value": "",
+                                            "relation_key": "ef59da3ec3091a2dbd651a36fed8a717"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        "contacts": null
+                    }
+                }
+            ]
+        }
+    ]
+}

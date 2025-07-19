@@ -7,10 +7,12 @@
 from datetime import datetime
 from typing import Any
 
-from fastapi import APIRouter, Header
+from fastapi import APIRouter, Header, Request
 
 from src.api.chathistory.models.save_part import SaveChatHistoryRequest
+from src.api.planning.model.planning_flow_type import PlanningTypeEnum
 from src.services.notification.notification_service import notification_service
+from src.util.request_util import parse_plan_flow_name_from_headers
 
 # from src.base.util.log_util import logger
 
@@ -18,7 +20,9 @@ router = APIRouter(prefix="/remote", tags=["remote"])
 
 
 @router.post("/im_chat_history/save_part")
-async def save_chat_history(request: SaveChatHistoryRequest, authorization: str = Header(...)) -> dict[str, Any]:
+async def save_chat_history(
+    request: SaveChatHistoryRequest, http_request: Request, authorization: str = Header(...)
+) -> dict[str, Any]:
     """
     保存聊天历史API端点
 curl 'http://localhost:5001/v1.0/invoke/planning-api/method/remote/im_chat_history/save_part' \
@@ -35,7 +39,9 @@ curl 'http://localhost:5001/v1.0/invoke/planning-api/method/remote/im_chat_histo
         else:
             token = authorization
 
-    await notification_service.handle_message(request.data.messages, request.session_id, token)
+    planFlow = parse_plan_flow_name_from_headers(http_request.headers)
+    if planFlow != PlanningTypeEnum.birthday:
+        await notification_service.handle_message(request.data.messages, request.session_id, token)
 
     return {
         "status": "success",

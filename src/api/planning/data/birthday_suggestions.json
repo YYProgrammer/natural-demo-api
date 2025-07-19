@@ -1,0 +1,59 @@
+{
+    "original_description": "",
+    "suggestions": [
+        {
+            "key": "2f00ad5475a67e026af87c47e0688990",
+            "title": "Draft a party invitation message",
+            "description": "Allow user to draft a party invitation message",
+            "interactions": [
+                {
+                    "type": "onSuggestion",
+                    "title": "Create a party plan",
+                    "description": "Allow user to draft a party invitation message",
+                    "value": {
+                        "key_info": "Plan my party button",
+                        "source": "ui_data"
+                    },
+                    "relation_key": ""
+                }
+            ],
+            "metadata": {}
+        },
+        {
+            "key": "2f00ad5475a67e026af87c47e0688990",
+            "title": "Plan Tommy's birthday celebration",
+            "description": "Allow user to plan Tommy's birthday celebration",
+            "interactions": [
+                {
+                    "type": "onSuggestion",
+                    "title": "Create a party plan",
+                    "description": "Allow user to plan Tommy's birthday celebration",
+                    "value": {
+                        "key_info": "Plan my party button",
+                        "source": "ui_data"
+                    },
+                    "relation_key": ""
+                }
+            ],
+            "metadata": {}
+        },
+        {
+            "key": "2f00ad5475a67e026af87c47e0688990",
+            "title": "Help coordinate a birthday party",
+            "description": "Allow user to help coordinate a birthday party",
+            "interactions": [
+                {
+                    "type": "onSuggestion",
+                    "title": "Create a party plan",
+                    "description": "Allow user to help coordinate a birthday party",
+                    "value": {
+                        "key_info": "Plan my party button",
+                        "source": "ui_data"
+                    },
+                    "relation_key": ""
+                }
+            ],
+            "metadata": {}
+        }
+    ]
+}

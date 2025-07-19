@@ -4,7 +4,9 @@
 管理聊天室数据，包括消息的存储和检索。
 """
 
-from typing import Any, Dict
+from typing import Any, Dict, Optional
+
+from src.api.planning.model.planning_flow_type import PlanningTypeEnum
 
 
 class ChatStore:
@@ -56,7 +58,7 @@ class ChatStore:
         last_message = chat_room["messages"][-1]
         return last_message["id"] + 1
 
-    def send_msg(self, query: str, session_id: str) -> Dict[str, Any]:
+    def send_msg(self, query: str, session_id: str, type: Optional[PlanningTypeEnum] = None) -> Dict[str, Any]:
         """
         发送消息到指定会话
 
@@ -81,13 +83,21 @@ class ChatStore:
         # 生成助手消息ID
         assistant_msg_id = user_msg_id + 1
 
-        # 创建助手消息
-        assistant_message = {
-            "id": assistant_msg_id,
-            "role": "assistant",
-            "type": "text",
-            "content": {"text": "I'm thinking"},
-        }
+        if type == PlanningTypeEnum.birthday:
+            assistant_message = {
+                "id": assistant_msg_id,
+                "role": "assistant",
+                "type": "state",
+                "content": {"progress": 100, "text": "Plan reload"},
+            }
+        else:
+            # 创建助手消息
+            assistant_message = {
+                "id": assistant_msg_id,
+                "role": "assistant",
+                "type": "text",
+                "content": {"text": "I'm thinking"},
+            }
 
         # 添加助手消息
         chat_room["messages"].append(assistant_message)

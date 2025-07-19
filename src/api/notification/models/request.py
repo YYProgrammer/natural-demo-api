@@ -8,11 +8,14 @@ from pydantic import BaseModel, Field
 class NotificationBody(BaseModel):
     """通知消息体"""
 
+    read: bool | None = Field(default=None, description="是否已读")
+    is_oldest_reached: bool | None = Field(default=None, description="是否到达最旧消息")
     type: str = Field(description="消息类型", min_length=1, max_length=50)
     package_name: str | None = Field(default=None, description="包名称", max_length=100)
     session_id: str | None = Field(default=None, description="会话ID", max_length=100)
     task_id: str | None = Field(default=None, description="任务ID", max_length=100)
     data: Dict[str, Any] | None = Field(default=None, description="消息数据")
+    interactions: list[Dict[str, Any]] | None = Field(default=None, description="交互数据")
 
 
 class Notification(BaseModel):
